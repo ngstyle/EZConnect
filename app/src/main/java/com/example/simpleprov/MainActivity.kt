@@ -256,6 +256,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope b
                 return -1
             }
             binding.editTextSsid.setText(wifiManager.connectionInfo.ssid)
+            binding.tvFrequency.text = formatFrequency(wifiManager.connectionInfo.frequency)
 
             val passBySsid = viewModel.getPassBySsid(binding.editTextSsid.text.toString())
             binding.rememberCheckbox.isChecked = passBySsid.isNotEmpty()
@@ -263,6 +264,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, CoroutineScope b
             binding.btnStart.isEnabled = true
         }
         return 0
+    }
+
+    fun formatFrequency(frequency: Int): String {
+        return if (frequency > 2400 && frequency < 2500) {
+            "2.4GHz"
+        } else if (frequency > 4900 && frequency < 5900) {
+            "5GHz"
+        } else {
+            frequency.toString()
+        }
     }
 
     override fun onDestroy() {

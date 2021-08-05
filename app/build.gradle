@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.simpleprov.origin"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 30
     }
 
@@ -37,10 +37,21 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+//            def date = new Date().format("yyyy_MM_dd_hh_mm", TimeZone.getTimeZone("GMT+08"))
+            if (variant.buildType.name == "debug") {
+                output.outputFileName = "EZConnect_v${variant.versionName}_debug_${variant.versionCode}.apk"
+            } else if (variant.buildType.name == "release") {
+                output.outputFileName = "EZConnect_v${variant.versionName}_release_${variant.versionCode}.apk"
+            }
+        }
+    }
 }
 
 dependencies {
-    def lifecycle_version = "2.4.0-alpha02"
+    def lifecycle_version = "2.4.0-alpha03"
 
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
