@@ -60,7 +60,7 @@ class EmitterTask(application: Application) {
         /* multicast uppermost byte has only 7 chr */
         val u = u and 0x7f
         try {
-//            Timber.d("239.$u.$m.$l")
+            Timber.d("239.$u.$m.$l")
             val data = "a".toByteArray()
             val inetAddress = InetAddress.getByName("239.$u.$m.$l")
             val packet = DatagramPacket(data, data.size, inetAddress, 5500)
